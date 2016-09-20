@@ -12,41 +12,27 @@
  * details.
  */
 
-package com.archive.controller;
+package com.archive.util;
 
+import com.archive.dao.UrlDAO;
 import com.archive.exception.DatabaseConnectionException;
-import com.archive.util.UrlUtil;
 
 import java.sql.SQLException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Jonathan McCann
  */
-@Controller
-public class ArchiveController {
+@Service
+public class UrlUtil {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "home";
-	}
-
-	@RequestMapping(value = "/saveUrl", method = RequestMethod.POST)
-	public String saveUrl(String url)
+	public static void addUrl(String url)
 		throws DatabaseConnectionException, SQLException {
 
-		UrlUtil.addUrl(url);
-
-		return "home";
+		_urlDAO.addUrl(url);
 	}
 
-	private static final Logger _log = LoggerFactory.getLogger(
-		ArchiveController.class);
+	private static UrlDAO _urlDAO = new UrlDAO();
 
 }

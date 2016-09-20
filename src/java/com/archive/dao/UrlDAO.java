@@ -12,41 +12,46 @@
  * details.
  */
 
-package com.archive.controller;
+package com.archive.dao;
 
 import com.archive.exception.DatabaseConnectionException;
-import com.archive.util.UrlUtil;
+import com.archive.util.DatabaseUtil;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 /**
  * @author Jonathan McCann
  */
-@Controller
-public class ArchiveController {
+public class UrlDAO {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "home";
-	}
-
-	@RequestMapping(value = "/saveUrl", method = RequestMethod.POST)
-	public String saveUrl(String url)
+	public void addUrl(String url)
 		throws DatabaseConnectionException, SQLException {
 
-		UrlUtil.addUrl(url);
+		_log.debug("Adding URL: {}", url);
 
-		return "home";
+		try (Connection connection = DatabaseUtil.getDatabaseConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(
+				_ADD_URL_SQL)) {
+
+			preparedStatement.setString(1, "itemId");
+			preparedStatement.setString(2, "itemTitle");
+			preparedStatement.setString(3, url);
+			preparedStatement.setString(4, "archiveUrl");
+
+			preparedStatement.executeUpdate();
+		}
 	}
 
+	private static final String _ADD_URL_SQL =
+		"INSERT INTO Url(itemId, itemTitle, waybackURL, archiveUrl) " +
+			"VALUES(?, ?, ?, ?)";
+
 	private static final Logger _log = LoggerFactory.getLogger(
-		ArchiveController.class);
+		UrlDAO.class);
 
 }
