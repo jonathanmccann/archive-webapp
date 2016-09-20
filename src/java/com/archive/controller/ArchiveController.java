@@ -14,6 +14,8 @@
 
 package com.archive.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,5 +30,15 @@ public class ArchiveController {
 	public String home() {
 		return "home";
 	}
+
+	@RequestMapping(value = "/saveUrl", method = RequestMethod.POST)
+	public String saveUrl(String url) {
+		_log.error("URL entered is: " + url);
+
+		return "home";
+	}
+
+	private static final Logger _log = LoggerFactory.getLogger(
+		ArchiveController.class);
 
 }

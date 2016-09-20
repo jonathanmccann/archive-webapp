@@ -16,10 +16,19 @@
 
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 	<body>
 		<h1>Home Page</h1>
+
+		<form:form action="saveUrl" commandName="saveUrl" method="post">
+			<div>
+				<b>URL: </b><input id="url" name="url"/>
+				<input type="submit" value="Save URL" />
+			</div>
+		</form:form>
 	</body>
 </html>
