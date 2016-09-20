@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+group = 'com.archive'
+version = '1.0'
+
+description = "Archive Webapp"
+
+dependencies {
+	compile group: 'jstl', name: 'jstl', version:'1.2'
+	compile group: 'org.springframework', name: 'spring-context', version:'4.1.2.RELEASE'
+	compile group: 'org.springframework', name: 'spring-web', version:'4.1.2.RELEASE'
+	compile group: 'org.springframework', name: 'spring-webmvc', version:'4.1.2.RELEASE'
+}
+
+repositories {
+	 maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir 'src/java'
+		}
+	}
+}
+
+war {
+	archiveName "ROOT.war"
+}
