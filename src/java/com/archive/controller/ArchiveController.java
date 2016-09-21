@@ -15,8 +15,10 @@
 package com.archive.controller;
 
 import com.archive.exception.DatabaseConnectionException;
+import com.archive.util.ArchiveUtil;
 import com.archive.util.UrlUtil;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import org.slf4j.Logger;
@@ -39,7 +41,9 @@ public class ArchiveController {
 
 	@RequestMapping(value = "/saveUrl", method = RequestMethod.POST)
 	public String saveUrl(String url)
-		throws DatabaseConnectionException, SQLException {
+		throws DatabaseConnectionException, SQLException, IOException {
+
+		ArchiveUtil.archiveUrl(url);
 
 		UrlUtil.addUrl(url);
 

@@ -40,16 +40,13 @@ public class UrlDAO {
 
 			preparedStatement.setString(1, "itemId");
 			preparedStatement.setString(2, "itemTitle");
-			preparedStatement.setString(3, url);
-			preparedStatement.setString(4, "archiveUrl");
 
 			preparedStatement.executeUpdate();
 		}
 	}
 
 	private static final String _ADD_URL_SQL =
-		"INSERT INTO Url(itemId, itemTitle, waybackURL, archiveUrl) " +
-			"VALUES(?, ?, ?, ?)";
+		"INSERT INTO Url(itemId, itemTitle) VALUES(?, ?)";
 
 	private static final Logger _log = LoggerFactory.getLogger(
 		UrlDAO.class);

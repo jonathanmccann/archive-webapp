@@ -22,13 +22,9 @@ public class UrlModel {
 	public UrlModel() {
 	}
 
-	public UrlModel(
-		String itemId, String itemTitle, String waybackURL,	String archiveUrl) {
-
+	public UrlModel(String itemId, String itemTitle) {
 		_itemId = itemId;
 		_itemTitle = itemTitle;
-		_waybackUrl = waybackURL;
-		_archiveUrl = archiveUrl;
 	}
 
 	public String getItemId() {
@@ -39,14 +35,6 @@ public class UrlModel {
 		return _itemTitle;
 	}
 
-	public String getWaybackUrl() {
-		return _waybackUrl;
-	}
-
-	public String getArchiveUrl() {
-		return _archiveUrl;
-	}
-
 	public void setItemId(String itemId) {
 		_itemId = itemId;
 	}
@@ -55,17 +43,7 @@ public class UrlModel {
 		_itemTitle = itemTitle;
 	}
 
-	public void setWaybackUrl(String waybackUrl) {
-		_waybackUrl = waybackUrl;
-	}
-
-	public void setArchiveUrl(String archiveUrl) {
-		_archiveUrl = archiveUrl;
-	}
-
 	private String _itemId;
 	private String _itemTitle;
-	private String _waybackUrl;
-	private String _archiveUrl;
 
 }
