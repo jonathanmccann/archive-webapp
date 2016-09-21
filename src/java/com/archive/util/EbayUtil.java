@@ -14,10 +14,8 @@
 
 package com.archive.util;
 
-import com.archive.dao.UrlDAO;
-import com.archive.exception.DatabaseConnectionException;
-
-import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
@@ -25,14 +23,31 @@ import org.springframework.stereotype.Service;
  * @author Jonathan McCann
  */
 @Service
-public class UrlUtil {
+public class EbayUtil {
 
-	public static void addUrl(String itemId, String itemTitle)
-		throws DatabaseConnectionException, SQLException {
+	public static String getItemId(String url) {
+		Matcher matcher = _ITEM_ID_PATTERN.matcher(url);
 
-		_urlDAO.addUrl(itemId, itemTitle);
+		if (matcher.find()) {
+			return matcher.group();
+		}
+		else {
+			return "";
+		}
 	}
 
-	private static UrlDAO _urlDAO = new UrlDAO();
+	public static String getItemTitle(String url) {
+		Matcher matcher = _ITEM_TITLE_PATTERN.matcher(url);
+
+		if (matcher.find()) {
+			return matcher.group(1).trim();
+		}
+		else {
+			return "";
+		}
+	}
+
+	private static final Pattern _ITEM_ID_PATTERN = Pattern.compile("\\/(\\d+)");
+	private static final Pattern _ITEM_TITLE_PATTERN = Pattern.compile("(.*)\\|");
 
 }

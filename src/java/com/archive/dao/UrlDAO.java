@@ -29,17 +29,17 @@ import org.slf4j.LoggerFactory;
  */
 public class UrlDAO {
 
-	public void addUrl(String url)
+	public void addUrl(String itemId, String itemTitle)
 		throws DatabaseConnectionException, SQLException {
 
-		_log.debug("Adding URL: {}", url);
+		_log.debug("Adding item ID: {}", itemId);
 
 		try (Connection connection = DatabaseUtil.getDatabaseConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(
 				_ADD_URL_SQL)) {
 
-			preparedStatement.setString(1, "itemId");
-			preparedStatement.setString(2, "itemTitle");
+			preparedStatement.setString(1, itemId);
+			preparedStatement.setString(2, itemTitle);
 
 			preparedStatement.executeUpdate();
 		}

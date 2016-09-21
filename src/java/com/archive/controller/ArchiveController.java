@@ -16,10 +16,14 @@ package com.archive.controller;
 
 import com.archive.exception.DatabaseConnectionException;
 import com.archive.util.ArchiveUtil;
+import com.archive.util.EbayUtil;
 import com.archive.util.UrlUtil;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +49,12 @@ public class ArchiveController {
 
 		ArchiveUtil.archiveUrl(url);
 
-		UrlUtil.addUrl(url);
+		Document document = Jsoup.connect(url).get();
+		String itemTitle = EbayUtil.getItemTitle(document.title());
+
+		String itemId = EbayUtil.getItemId(url);
+
+		UrlUtil.addUrl(itemId, itemTitle);
 
 		return "home";
 	}
